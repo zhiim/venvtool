@@ -58,3 +58,6 @@ _deps
 
 build/
 ref/
+
+# clang cache
+.cache/

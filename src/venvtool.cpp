@@ -32,7 +32,7 @@ void VenvTool::venvActivate(std::string venvName) {
     std::string activateCMD = venvPath_ + venvName + "\\Scripts\\activate";
     #else
     std::string activateCMD = "source " + venvPath_ + venvName +\
-                            "/bin/activate"
+                            "/bin/activate";
     #endif
 
     std::system(activateCMD.c_str());
