@@ -1,24 +1,33 @@
+#include <cstdlib>
 #include <iostream>
 #include <string>
 #include "cxxopts.hpp"
 #include "venvtool.hpp"
 
+// path of venv dictory
+#if defined(_WIN32) || defined(__MINGW32__)
+std::string venvPath = std::string(std::getenv("UserProfile")) + "/.venvtool";
+#else
+std::string venvPath = std::string(std::getenv("HOME")) + "/.venvtool";
+#endif
+
 int main(int argc, char** argv) {
     cxxopts::Options options("venvtool", "a tool to manage venvs like conda");
 
     options.add_options()
-        ("c, create", "Create a new venv", cxxopts::value<std::string>())
+        ("h, help", "Print usage")
         ("l, list", "List all existing venvs")
+        ("c, create", "Create a new venv", cxxopts::value<std::string>())
+        ("r, remove", "Remove an venv", cxxopts::value<std::string>())
         ("a, activate", "Activate an venv", cxxopts::value<std::string>())
         ("d, deactivate", "Deactivate an venv")
-        ("r, remove", "Remove an venv", cxxopts::value<std::string>())
-        ("h, help", "Print usage")
     ;
 
+    // parse options
     auto result = options.parse(argc, argv);
 
     std::string venvName;
-    VenvTool venvTool("/home/xu/.venvtool");
+    VenvTool venvTool(venvPath);
     
     if (result.count("help")) {
         std::cout << options.help() << std::endl;

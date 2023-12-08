@@ -10,7 +10,7 @@ VenvTool::VenvTool(std::string venvPath) {
 VenvTool::~VenvTool() {}
 
 void VenvTool::venvCreate(std::string venvName) {
-    std::string createCMD = "python -m venv ";
+    std::string createCMD = "python3 -m venv ";
     createCMD += (venvPath_ + "/" + venvName);
     std::system(createCMD.c_str());
 }
@@ -27,18 +27,17 @@ void VenvTool::venvList() {
         std::cout << std::setw(24) << std::left << entry.path().filename()\
                     << entry.path() << std::endl;
     }
+    std::cout << std::endl;
 }
 
 void VenvTool::venvActivate(std::string venvName) {
     #if defined(_WIN32) || defined(__MINGW32__)
-    std::string activateCMD = venvPath_ + "\\" + venvName + "\\Scripts\\activate";
+    std::string activatePath = venvPath_ + "/" + venvName + "/Scripts/Activate.ps1";
     #else
-    std::string activateCMD = "source " + venvPath_ + "/" + venvName +\
-                            "/bin/activate";
+    std::string activatePath = venvPath_ + "/" + venvName + "/bin/activate";
     #endif
 
-    std::cout << activateCMD << std::endl;
-    std::system(activateCMD.c_str());
+    std::cout << activatePath << std::endl;
 }
 
 void VenvTool::venvDeactive() {
