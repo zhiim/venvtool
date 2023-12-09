@@ -5,13 +5,17 @@ switch ($args[0]) {
         .$venvPath\venvtool.exe -h
     }
 
+    {($_ -eq '-i') -or ($_ -eq '--init')} {
+        $venvRootPath = $args[1]
+        .$venvPath\venvtool.exe -i $venvRootPath
+    }
+    
     {($_ -eq '-c') -or ($_ -eq '--create')} {
         $venvName = $args[1]
         .$venvPath\venvtool.exe -c $venvName
     }
 
     {($_ -eq '-l') -or ($_ -eq '--list')} {
-        Write-Output $args[0]
         .$venvPath\venvtool.exe -l
     }
 

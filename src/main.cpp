@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
     std::string venvPath;
     // if already initiated, there will be conf file
     // so read venv path from conf file
-    if (std::filesystem::exists(venvtoolPath + ".conf")) {
+    if (std::filesystem::exists(venvtoolPath + "/.conf")) {
         std::ifstream confFile(venvtoolPath + "/.conf");
         std::getline(confFile, venvPath);
     // else use the default path

@@ -45,14 +45,12 @@ class VenvTool {
             std::string venvtoolPath = std::string(std::getenv("HOME")) + "/.local/bin/venvtool";
             #endif
 
-            std::filesystem::path rootPath(venvPath);
-            
-            if (std::filesystem::exists(rootPath)) {
+            if (std::filesystem::exists(venvPath)) {
                 std::cout << "Directory already exists" << std::endl;
                 return;
             }
             
-            std::filesystem::create_directory(rootPath);
+            std::filesystem::create_directory(venvPath);
             
             // save venv root path into config file
             std::ofstream pathOut(venvtoolPath + "/.conf");
