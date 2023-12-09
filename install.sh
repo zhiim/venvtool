@@ -6,12 +6,12 @@ cp ./scripts/venvtool.sh ~/.local/bin/venvtool
 cp ./out/venvtool ~/.local/bin/venvtool
 
 # set venvtool alias, so you can use venvtool command to run venvtool.sh
-if [ -n "$ZSH_VERSION" ]; then
-   # assume Zsh
+if [ -n "$ZSH_VERSION" ]
+then
     echo alias venvtool='"source ~/.local/bin/venvtool/venvtool.sh"' >> ~/.zshrc
     source ~/.zshrc
-elif [ -n "$BASH_VERSION" ]; then
-   # assume Bash
+elif [ -n "$BASH_VERSION" ]
+then
     echo alias venvtool='"source ~/.local/bin/venvtool/venvtool.sh"' >> ~/.bashrc
     source ~/.bashrc
 fi

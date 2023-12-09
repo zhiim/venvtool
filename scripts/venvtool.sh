@@ -3,16 +3,21 @@ do
     case $arg in
 
 	-h|--help)
-	/usr/local/bin/venvtool/venvtool -h
+	~/.local/bin/venvtool/venvtool -h
     ;;
 
+	-i|--init)
+    venvPath=$2
+	~/.local/bin/venvtool/venvtool -i $venvPath
+    ;;
+    
     -c|--create)
 	venvName=$2
-	/usr/local/bin/venvtool/venvtool -c $venvName
+	~/.local/bin/venvtool/venvtool -c $venvName
     ;;
 
     -l|--list)
-	/usr/local/bin/venvtool/venvtool -l
+	~/.local/bin/venvtool/venvtool -l
     ;;
 
     -a|--activate)
@@ -27,7 +32,7 @@ do
 
     -r|--remove)
 	venvName=$2
-	/usr/local/bin/venvtool/venvtool -r $venvName
+	~/.local/bin/venvtool/venvtool -r $venvName
     ;;
 
     esac
