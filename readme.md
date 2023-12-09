@@ -9,7 +9,7 @@ It can be used to create, remove, list, activate and deactivate venv.
 Download or clone this repo.
 
 ```shell
-git clone
+git clone https://github.com/zhiim/venvtool.git
 ```
 
 Compile it.
@@ -23,18 +23,40 @@ make
 
 The compiled program will appear in the `out` folder.
 
-In Linux, run `install.sh`
+1. In Linux
+
+Run `install.sh`
 
 ```shell
 bash install.sh
 source /etc/profile
 ```
 
-In Windows, creat a new folder, put `out/venvtool.exe` and `scripts/venvtool.ps1` in it. Then add path of this folder into 
+2. In Windows
+
+Run `install.ps1`
+
+```shell
+./install.ps1
+```
+
+Then restart powershell.
 
 ## Usage
 
 ```shell
+venvtool -h
+
+a tool to manage venvs like conda
+Usage:
+  venvtool [OPTION...]
+
+  -h, --help          Print usage
+  -l, --list          List all existing venvs
+  -c, --create arg    Create a new venv
+  -r, --remove arg    Remove an venv
+  -a, --activate arg  Activate an venv
+  -d, --deactivate    Deactivate an venv
 venvtool [OPTION...]
 
   -c, --create arg    Create a new venv

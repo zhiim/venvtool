@@ -6,7 +6,7 @@
 
 // path of venv dictory
 #if defined(_WIN32) || defined(__MINGW32__)
-std::string venvPath = std::string(std::getenv("UserProfile")) + "/.venvtool";
+std::string venvPath = std::string(std::getenv("LOCALAPPDATA")) + "/venvtool";
 #else
 std::string venvPath = std::string(std::getenv("HOME")) + "/.venvtool";
 #endif

@@ -1,21 +1,23 @@
+$venvPath="$env:appdata\venvtool"
+
 switch ($args[0]) {
     {($_ -eq '-h') -or ($_ -eq '--help')} {
-        .\venvtool.exe -h
+        .$venvPath\venvtool.exe -h
     }
 
     {($_ -eq '-c') -or ($_ -eq '--create')} {
         $venvName = $args[1]
-        .\venvtool.exe -c $venvName
+        .$venvPath\venvtool.exe -c $venvName
     }
 
     {($_ -eq '-l') -or ($_ -eq '--list')} {
         Write-Output $args[0]
-        .\venvtool.exe -l
+        .$venvPath\venvtool.exe -l
     }
 
     {($_ -eq '-a') -or ($_ -eq '--activate')} {
         $venvName = $args[1]
-        $activatePath = .\out\venvtool.exe -a $venvName
+        $activatePath = .$venvPath\venvtool.exe -a $venvName
         . $activatePath
     }
 
@@ -25,6 +27,6 @@ switch ($args[0]) {
 
     {($_ -eq '-r') -or ($_ -eq '--remove')} {
         $venvName = $args[1]
-        .\venvtool.exe -r $venvName
+        .$venvPath\venvtool.exe -r $venvName
     }
 }

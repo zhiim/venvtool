@@ -11,6 +11,7 @@ add_compile_options(-std=c++17)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  "../out")
 set(CMAKE_CXX_FLAGS_DEBUG "-fPIC -O0 -g -Wall")
 set(CMAKE_CXX_FLAGS_RELEASE "-fPIC -O2 -Wall")
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Header path
 include_directories(
