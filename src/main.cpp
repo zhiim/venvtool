@@ -13,6 +13,31 @@ std::string venvPathDefault = std::string(std::getenv("LOCALAPPDATA")) + "/venvt
 std::string venvPathDefault = std::string(std::getenv("HOME")) + "/.venvtool";
 #endif
 
+// path of venvtool
+#if defined(_WIN32) || defined(__MINGW32__)
+std::string venvtoolPath = std::string(std::getenv("appdata")) + "/venvtool";
+#else
+std::string venvtoolPath = std::string(std::getenv("HOME")) + "/.local/bin/venvtool";
+#endif
+
+std::string getVenvPath() {
+    std::string venvPath;
+    
+    // if already initiated, there will be conf file
+    // so read venv path from conf file
+    if (std::filesystem::exists(venvtoolPath + "/.conf")) {
+        std::ifstream confFile(venvtoolPath + "/.conf");
+        std::getline(confFile, venvPath);
+    // else use the default path
+    } else {
+        venvPath = venvPathDefault;
+        // init whith default path
+        VenvTool::venvInit(venvPath);
+    }
+
+    return venvPath;
+}
+
 int main(int argc, char** argv) {
     cxxopts::Options options("venvtool", "a tool to manage venvs like conda");
 
@@ -34,52 +59,46 @@ int main(int argc, char** argv) {
 
     if (result.count("help")) {
         std::cout << options.help() << std::endl;
-        exit(0);
     }
 
     // init venvtool, set root dir for venvs
     if (result.count("init")) {
         std::string venvPath = result["init"].as<std::string>();
         VenvTool::venvInit(venvPath);
-        exit(0);
     }
-    
-    // read venvPath from conf file
-    #if defined(_WIN32) || defined(__MINGW32__)
-    std::string venvtoolPath = std::string(std::getenv("appdata")) + "/venvtool";
-    #else
-    std::string venvtoolPath = std::string(std::getenv("HOME")) + "/.local/bin/venvtool";
-    #endif
-
-    std::string venvPath;
-    // if already initiated, there will be conf file
-    // so read venv path from conf file
-    if (std::filesystem::exists(venvtoolPath + "/.conf")) {
-        std::ifstream confFile(venvtoolPath + "/.conf");
-        std::getline(confFile, venvPath);
-    // else use the default path
-    } else {
-        venvPath = venvPathDefault;
-    }
-
-    VenvTool venvTool(venvPath);
     
     if (result.count("create")) {
         std::string venvName = result["create"].as<std::string>();
+        // read venvPath from conf file
+        std::string venvPath = getVenvPath();
+        
+        VenvTool venvTool(venvPath);
         venvTool.venvCreate(venvName);
     }
     if (result.count("list")) {
+        std::string venvPath = getVenvPath();
+        
+        VenvTool venvTool(venvPath);
         venvTool.venvList();
     }
     if (result.count("activate")) {
         std::string venvName = result["activate"].as<std::string>();
+        std::string venvPath = getVenvPath();
+        
+        VenvTool venvTool(venvPath);
         venvTool.venvActivate(venvName);
     }
     if (result.count("deactivate")) {
+        std::string venvPath = getVenvPath();
+        
+        VenvTool venvTool(venvPath);
         venvTool.venvDeactive();
     }
     if (result.count("remove")) {
         std::string venvName = result["remove"].as<std::string>();
+        std::string venvPath = getVenvPath();
+        
+        VenvTool venvTool(venvPath);
         venvTool.venvRemove(venvName);
     }
 

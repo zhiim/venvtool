@@ -22,8 +22,12 @@ void VenvTool::venvList() {
     std::cout << "# Python venvs:" << std::endl;
     std::cout << "#" << std::endl;
 
-    std::filesystem::path venvRootPath(venvPath_);
-    for (auto const& entry : std::filesystem::directory_iterator(venvRootPath))
+    // creat venv path if it not exist
+    if (!std::filesystem::exists(venvPath_)) {
+        std::filesystem::create_directory(venvPath_);
+    }
+
+    for (auto const& entry : std::filesystem::directory_iterator(venvPath_))
     {
         // print venv name and path
         std::cout << std::setw(24) << std::left << entry.path().filename()\
