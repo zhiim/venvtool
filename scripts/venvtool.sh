@@ -22,7 +22,7 @@ do
 
     -a|--activate)
 	venvName=$2
-	activatePath=$(/usr/local/bin/venvtool/venvtool -a $venvName)
+	activatePath=$(~/.local/bin/venvtool/venvtool -a $venvName)
     source $activatePath
     ;;
 

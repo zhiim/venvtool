@@ -12,7 +12,7 @@ VenvTool::VenvTool(std::string venvPath) {
 VenvTool::~VenvTool() {}
 
 void VenvTool::venvCreate(std::string venvName) {
-    std::string createCMD = "python -m venv ";
+    std::string createCMD = "python3 -m venv ";
     createCMD += (venvPath_ + "/" + venvName);
     std::system(createCMD.c_str());
 }
