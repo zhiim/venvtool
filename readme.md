@@ -57,12 +57,4 @@ Usage:
   -r, --remove arg    Remove an venv
   -a, --activate arg  Activate an venv
   -d, --deactivate    Deactivate an venv
-venvtool [OPTION...]
-
-  -c, --create arg    Create a new venv
-  -l, --list          List all existing venvs
-  -a, --activate arg  Activate an venv
-  -d, --deactivate    Deactivate an venv
-  -r, --remove arg    Remove an venv
-  -h, --help          Print usage
 ```
