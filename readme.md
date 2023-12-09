@@ -23,26 +23,25 @@ make
 
 The compiled program will appear in the `out` folder.
 
-1. In Linux
+Install venvtool with script.
 
-Run `install.sh`
-
-```shell
-bash install.sh
-source /etc/profile
-```
-
-2. In Windows
-
-Run `install.ps1`
 
 ```shell
+# in Linux
+source install.sh
+# in Windows
 ./install.ps1
 ```
 
-Then restart powershell.
+Then restart terminal.
 
 ## Usage
+
+venvtool should be initiated with a path to put all venvs, or you can use default path.
+
+```shell
+venvtool -i /path/to/put/venv
+```
 
 ```shell
 venvtool -h
@@ -52,9 +51,28 @@ Usage:
   venvtool [OPTION...]
 
   -h, --help          Print usage
+  -i, --init arg      initiate venvtool with a path where all venvs will be
+                      stored
   -l, --list          List all existing venvs
   -c, --create arg    Create a new venv
   -r, --remove arg    Remove an venv
   -a, --activate arg  Activate an venv
   -d, --deactivate    Deactivate an venv
+```
+
+## Uninstallation
+
+Remove venvtool
+
+```shell
+# in Linux
+rm -rf ~/.local/bin/venvtool
+# in Windows
+rm $env:appdata\venvtool
+```
+
+Remove venvs
+
+```shell
+rm /path/to/put/venvs
 ```
