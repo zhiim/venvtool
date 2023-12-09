@@ -1,6 +1,8 @@
 #include <iostream>
+#include <fstream>
 #include <iomanip>
 #include <filesystem>
+#include <string>
 #include "venvtool.hpp"
 
 VenvTool::VenvTool(std::string venvPath) {

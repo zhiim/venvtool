@@ -1,4 +1,6 @@
 #include <cstdlib>
+#include <filesystem>
+#include <fstream>
 #include <iostream>
 #include <string>
 #include "cxxopts.hpp"
@@ -14,6 +16,7 @@ std::string venvPathDefault = std::string(std::getenv("HOME")) + "/.venvtool";
 int main(int argc, char** argv) {
     cxxopts::Options options("venvtool", "a tool to manage venvs like conda");
 
+    // set options
     options.add_options()
         ("h, help", "Print usage")
         ("i, init",
@@ -29,16 +32,38 @@ int main(int argc, char** argv) {
     // parse options
     auto result = options.parse(argc, argv);
 
-    VenvTool venvTool(venvPath);
-    
     if (result.count("help")) {
         std::cout << options.help() << std::endl;
         exit(0);
     }
+
+    // init venvtool, set root dir for venvs
     if (result.count("init")) {
         std::string venvPath = result["init"].as<std::string>();
-        venvTool.venvInit(venvPath);
+        VenvTool::venvInit(venvPath);
+        exit(0);
     }
+    
+    // read venvPath from conf file
+    #if defined(_WIN32) || defined(__MINGW32__)
+    std::string venvtoolPath = std::string(std::getenv("appdata")) + "/venvtool";
+    #else
+    std::string venvtoolPath = std::string(std::getenv("HOME")) + "/.local/bin/venvtool";
+    #endif
+
+    std::string venvPath;
+    // if already initiated, there will be conf file
+    // so read venv path from conf file
+    if (std::filesystem::exists(venvtoolPath + ".conf")) {
+        std::ifstream confFile(venvtoolPath + "/.conf");
+        std::getline(confFile, venvPath);
+    // else use the default path
+    } else {
+        venvPath = venvPathDefault;
+    }
+
+    VenvTool venvTool(venvPath);
+    
     if (result.count("create")) {
         std::string venvName = result["create"].as<std::string>();
         venvTool.venvCreate(venvName);
