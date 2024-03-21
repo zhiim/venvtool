@@ -18,7 +18,7 @@ Compile it.
 mkdir build
 cd build
 cmake ..
-make
+cmake --build .
 ```
 
 The compiled program will appear in the `out` folder.
